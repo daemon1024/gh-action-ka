@@ -50,11 +50,12 @@ jobs:
         run: |
           kubectl create deployment nginx --image=nginx
           POD=$(kubectl get pod -l app=nginx -o name)
+          kubectl wait --for=condition=Ready pods --all -A --timeout=120s
+          kubectl exec -it $POD -- sh -c "sleep 1"
+          
 
       - name: Generate report
         run: |
-          kubectl wait --for=condition=Ready pods --all -A --timeout=120s
-          sleep 150s
           kubectl get pods -A
           karmor summary 
           
