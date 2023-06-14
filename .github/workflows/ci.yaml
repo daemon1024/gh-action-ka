@@ -51,7 +51,7 @@ jobs:
           kubectl create deployment nginx --image=nginx
           POD=$(kubectl get pod -l app=nginx -o name)
           kubectl wait --for=condition=Ready pods --all -A --timeout=120s
-          kubectl exec -it $POD -- sh -c "apt"
+          kubectl exec -it $POD -- sh -c "sleep 1"
           
 
       - name: Generate report
